@@ -63,10 +63,10 @@ export default function BlogCarousel() {
               </span>
             </div>
             <div className="p-4 text-center">
-              <div className="text-xl font-semibold text-green-600 mb-2 transition-transform group-hover:translate-x-1">
+              <div className="text-2xl font-medium font-serif text-green-600 mb-2 transition-transform group-hover:translate-x-1">
                 {blog.title}
               </div>
-              <div className="text-sm text-gray-800 group-hover:text-gray-600">
+              <div className="text-sm font-serif text-gray-800 group-hover:text-gray-600">
                 {blog.description}
               </div>
             </div>
