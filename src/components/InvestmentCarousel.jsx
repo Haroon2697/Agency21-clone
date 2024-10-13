@@ -26,14 +26,31 @@ const investments = [
     location: "Islamabad",
     startingFrom: "Starting from Rs 3.75 Lac (Total SQFT 50)",
   },
+  {
+    id: 4,
+    image: "office.jpg",
+    price: "Starting from Rs 18 Lac (Total SQFT 250)",
+    name: "Milton Office Spaces",
+    location: "Islamabad",
+    startingFrom: "60 Lac",
+  },
 ];
 
 export default function CircularInvestmentCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isClient, setIsClient] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
     setIsClient(true);
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const nextCard = () => {
@@ -48,6 +65,12 @@ export default function CircularInvestmentCarousel() {
     return (currentIndex + offset + investments.length) % investments.length;
   };
 
+  const getVisibleCards = () => {
+    if (windowWidth >= 1280) return [-2, -1, 0, 1, 2];
+    if (windowWidth >= 1024) return [-1, 0, 1];
+    return [0];
+  };
+
   if (!isClient) {
     return <div className="h-96 bg-gray-100 animate-pulse rounded-lg"></div>;
   }
@@ -57,16 +80,16 @@ export default function CircularInvestmentCarousel() {
       <h2 className="text-4xl font-extrabold mb-12 text-center text-green-600 animate-fadeIn">Investments</h2>
 
       <div className="flex justify-center items-center space-x-4 px-4">
-        {[-1, 0, 1].map((offset) => {
+        {getVisibleCards().map((offset) => {
           const investment = investments[getCardIndex(offset)];
           return (
             <div
               key={`${investment.id}-${offset}`}
-              className={`w-72 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out relative ${
-                offset === 0 ? "z-10" : "opacity-70"
+              className={`w-64 sm:w-72 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out relative ${
+                offset === 0 ? "z-10" : "z-0 opacity-70"
               }`}
               style={{
-                transform: `translateX(${offset * 80}px) scale(${offset === 0 ? 1 : 0.8})`,
+                transform: `translateX(${offset * (windowWidth >= 1024 ? 60 : 0)}px) scale(${offset === 0 ? 1.1 : 0.8})`,
                 transition: "all 0.5s ease-in-out",
               }}
             >
@@ -101,12 +124,14 @@ export default function CircularInvestmentCarousel() {
       <button
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 active:scale-95"
         onClick={prevCard}
+        aria-label="Previous investment"
       >
         <ChevronLeft size={24} />
       </button>
       <button
         className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 active:scale-95"
         onClick={nextCard}
+        aria-label="Next investment"
       >
         <ChevronRight size={24} />
       </button>
