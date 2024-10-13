@@ -26,18 +26,41 @@ const testimonials = [
       "I am incredibly satisfied with my new home in their high-rise development. The modern architecture and premium amenities make it a perfect living space.",
     image: "/client2.jpeg",
   },
+  {
+    id: 4,
+    name: "Sara Ahmad",
+    title: "Luxury Property Owner",
+    review:
+      "Milton Developers provided outstanding service with top-notch quality. Their attention to detail in luxury apartments is unmatched, and it has significantly increased the value of my properties.",
+    image: "/client3.jpeg",
+  },
+  {
+    id: 5,
+    name: "Usman Tariq",
+    title: "Commercial Investor",
+    review:
+      "The professionalism and expertise of Milton Developers in delivering high-end commercial properties have elevated my business ventures. Their projects consistently meet and exceed expectations.",
+    image: "/client2.jpeg",
+  },
 ];
 
 export default function TestimonialCarousel() {
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [visibleStartIndex, setVisibleStartIndex] = useState(0);
 
+  // Constants for the visible range (only 3 at a time)
+  const visibleCount = 3;
+  const maxIndex = testimonials.length - visibleCount;
+
+  // Scroll to the left, ensuring we don't go beyond index 0
   const scrollLeft = () => {
-    const newPos = scrollPosition - 300;
-    setScrollPosition(newPos < 0 ? 0 : newPos);
+    setVisibleStartIndex(visibleStartIndex > 0 ? visibleStartIndex - 1 : 0);
   };
 
+  // Scroll to the right, ensuring we don't go beyond the last testimonial
   const scrollRight = () => {
-    setScrollPosition(scrollPosition + 300);
+    setVisibleStartIndex(
+      visibleStartIndex < maxIndex ? visibleStartIndex + 1 : maxIndex
+    );
   };
 
   return (
@@ -46,37 +69,49 @@ export default function TestimonialCarousel() {
         Client Testimonials
       </h2>
 
-      <div className="flex overflow-x-auto space-x-6 px-8 transform transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${scrollPosition}px)` }}>
-        {testimonials.map((testimonial) => (
-          <div
-            key={testimonial.id}
-            className="flex-none w-80 bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative"
-          >
-            <div className="relative group">
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="w-24 h-24 rounded-full mx-auto mt-4 object-cover group-hover:brightness-75 transition-all duration-300"
-              />
+      {/* Display only the visible testimonials */}
+      <div className="flex justify-center space-x-6 px-8">
+        {testimonials
+          .slice(visibleStartIndex, visibleStartIndex + visibleCount)
+          .map((testimonial) => (
+            <div
+              key={testimonial.id}
+              className="flex-none w-80 rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative"
+              style={{
+                background: "linear-gradient(to bottom, #e0f7da, #ffffff)",
+              }}
+            >
+              <div className="relative group">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  className="w-24 h-24 rounded-full mx-auto mt-4 object-cover group-hover:brightness-75 transition-all duration-300"
+                />
+              </div>
+              <div className="p-4 text-center">
+                <div className="text-lg font-bold text-green-600 mb-2">
+                  {testimonial.name}
+                </div>
+                <div className="text-base font-light text-green-600 mb-4">
+                  {testimonial.title}
+                </div>
+                <p className="text-sm text-gray-800 italic">
+                  "{testimonial.review}"
+                </p>
+              </div>
             </div>
-            <div className="p-4 text-center">
-              <div className="text-lg font-semibold text-green-600 mb-2">{testimonial.name}</div>
-              <div className="text-sm font-light text-gray-600 mb-4">{testimonial.title}</div>
-              <p className="text-sm text-gray-600 italic">"{testimonial.review}"</p>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       {/* Carousel controls */}
       <button
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
+        className="absolute left-10 top-1/2 transform -translate-y-1/2 bg-green-600 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
         onClick={scrollLeft}
       >
         <ChevronLeft size={24} />
       </button>
       <button
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
+        className="absolute right-10 top-1/2 transform -translate-y-1/2 bg-green-600 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
         onClick={scrollRight}
       >
         <ChevronRight size={24} />

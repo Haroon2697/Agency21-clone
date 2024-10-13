@@ -43,11 +43,14 @@ export default function BlogCarousel() {
         Our Latest Blogs
       </h2>
 
-      <div className="flex overflow-x-auto space-x-6 px-8 transform transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${scrollPosition}px)` }}>
+      <div className="flex justify-center space-x-6 px-8 transform transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${scrollPosition}px)` }}>
         {blogs.map((blog) => (
           <div
             key={blog.id}
             className="flex-none w-80 bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative"
+            style={{
+              background: "bg-white",
+            }}
           >
             <div className="relative group">
               <img
@@ -59,27 +62,26 @@ export default function BlogCarousel() {
                 {blog.date}
               </span>
             </div>
-            <div className="p-4">
+            <div className="p-4 text-center">
               <div className="text-xl font-semibold text-green-600 mb-2 transition-transform group-hover:translate-x-1">
                 {blog.title}
               </div>
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-800 group-hover:text-gray-600">
                 {blog.description}
               </div>
             </div>
           </div>
         ))}
       </div>
-
-      {/* Carousel controls */}
+      
       <button
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
+        className="absolute left-10 top-1/2 transform -translate-y-1/2 bg-green-600 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
         onClick={scrollLeft}
       >
         <ChevronLeft size={24} />
       </button>
       <button
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
+        className="absolute right-10 top-1/2 transform -translate-y-1/2 bg-green-600 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
         onClick={scrollRight}
       >
         <ChevronRight size={24} />
