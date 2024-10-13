@@ -89,7 +89,7 @@ export default function TestimonialCarousel() {
                 />
               </div>
               <div className="p-4 text-center">
-                <div className="text-lg font-bold text-green-600 mb-2">
+                <div className="text-lg  font-semibold text-green-600 mb-2">
                   {testimonial.name}
                 </div>
                 <div className="text-base font-light text-green-600 mb-4">
