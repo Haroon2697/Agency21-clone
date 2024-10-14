@@ -108,7 +108,7 @@ export default function CircularInvestmentCarousel() {
   };
 
   return (
-    <div className="relative overflow-hidden px-4 py-8 mx-auto max-w-7xl">
+    <div className="relative overflow-hidden px-4 pb-8 mx-auto max-w-7xl">
       <h2 className="text-4xl font-extrabold mb-12 text-start text-green-600 animate-fadeIn">
         Investments
       </h2>

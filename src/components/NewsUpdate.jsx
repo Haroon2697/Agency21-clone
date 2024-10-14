@@ -26,15 +26,14 @@ const blogs = [
 ];
 
 export default function BlogCarousel() {
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0); // Index of the currently active blog
 
   const scrollLeft = () => {
-    const newPos = scrollPosition - 300;
-    setScrollPosition(newPos < 0 ? 0 : newPos);
+    setActiveIndex((prevIndex) => (prevIndex === 0 ? blogs.length - 1 : prevIndex - 1));
   };
 
   const scrollRight = () => {
-    setScrollPosition(scrollPosition + 300);
+    setActiveIndex((prevIndex) => (prevIndex === blogs.length - 1 ? 0 : prevIndex + 1));
   };
 
   return (
@@ -43,37 +42,36 @@ export default function BlogCarousel() {
         Our Latest Blogs
       </h2>
 
-      <div className="flex justify-center space-x-6 px-8 transform transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${scrollPosition}px)` }}>
-        {blogs.map((blog) => (
+      <div className="flex justify-center space-x-6 px-8">
+        {blogs.map((blog, index) => (
           <div
             key={blog.id}
-            className="flex-none w-80 bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative"
-            style={{
-              background: "bg-white",
-            }}
+            className={`flex-none w-80 bg-white rounded-lg shadow-lg hover:shadow-2xl transform transition-transform duration-300 relative ${
+              index === activeIndex ? "scale-105" : "opacity-80"
+            }`}
           >
             <div className="relative group">
               <img
                 src={blog.image}
                 alt={blog.title}
-                className="w-full h-48 object-cover rounded-t-lg group-hover:brightness-75 transition-all duration-300"
+                className="w-full h-48 object-cover rounded-t-lg transition-all duration-300"
               />
               <span className="absolute bottom-2 left-2 bg-gray-900 text-white px-2 py-1 text-xs rounded">
                 {blog.date}
               </span>
             </div>
             <div className="p-4 text-center">
-              <div className="text-2xl font-medium font-serif text-green-600 mb-2 transition-transform group-hover:translate-x-1">
+              <div className="text-2xl font-medium font-serif text-green-600 mb-2">
                 {blog.title}
               </div>
-              <div className="text-sm font-serif text-gray-800 group-hover:text-gray-600">
+              <div className="text-sm font-serif text-gray-800">
                 {blog.description}
               </div>
             </div>
           </div>
         ))}
       </div>
-      
+
       <button
         className="absolute left-10 top-1/2 transform -translate-y-1/2 bg-green-600 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
         onClick={scrollLeft}

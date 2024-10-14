@@ -49,17 +49,19 @@ export default function TestimonialCarousel() {
 
   // Constants for the visible range (only 3 at a time)
   const visibleCount = 3;
-  const maxIndex = testimonials.length - visibleCount;
+  const maxIndex = testimonials.length;
 
   // Scroll to the left, ensuring we don't go beyond index 0
   const scrollLeft = () => {
-    setVisibleStartIndex(visibleStartIndex > 0 ? visibleStartIndex - 1 : 0);
+    setVisibleStartIndex((prevIndex) => 
+      prevIndex > 0 ? prevIndex - 1 : maxIndex - visibleCount
+    );
   };
 
   // Scroll to the right, ensuring we don't go beyond the last testimonial
   const scrollRight = () => {
-    setVisibleStartIndex(
-      visibleStartIndex < maxIndex ? visibleStartIndex + 1 : maxIndex
+    setVisibleStartIndex((prevIndex) =>
+      prevIndex < maxIndex - visibleCount ? prevIndex + 1 : 0
     );
   };
 
@@ -76,23 +78,20 @@ export default function TestimonialCarousel() {
           .map((testimonial) => (
             <div
               key={testimonial.id}
-              className="flex-none w-80 rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative"
-              style={{
-                background: "linear-gradient(to bottom, #e0f7da, #ffffff)",
-              }}
+              className="flex-none w-80 rounded-lg shadow-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 relative border-t-2 border-l-2 border-green-200" // Border and shadow adjustments
             >
               <div className="relative group">
                 <img
                   src={testimonial.image}
                   alt={testimonial.name}
-                  className="w-24 h-24 rounded-full mx-auto mt-4 object-cover group-hover:brightness-75 transition-all duration-300"
+                  className="w-24 h-24 rounded-full mx-auto mt-4 object-cover group-hover:brightness-75 transition-all duration-300 border-4 border-green-600" // Added border here
                 />
               </div>
               <div className="p-4 text-center">
-                <div className="text-lg  text-3xl font-medium font-serif text-green-600 mb-2">
+                <div className="text-lg  font-medium font-serif text-green-600 mb-2">
                   {testimonial.name}
                 </div>
-                <div className="text-base font-light font-medium font-serif text-green-600 mb-4">
+                <div className="text-base font-light  font-serif text-green-600 mb-4">
                   {testimonial.title}
                 </div>
                 <p className="text-sm font-serif text-gray-800 italic">
@@ -108,13 +107,13 @@ export default function TestimonialCarousel() {
         className="absolute left-10 top-1/2 transform -translate-y-1/2 bg-green-600 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
         onClick={scrollLeft}
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft size={18} />
       </button>
       <button
         className="absolute right-10 top-1/2 transform -translate-y-1/2 bg-green-600 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-transform hover:scale-110"
         onClick={scrollRight}
       >
-        <ChevronRight size={24} />
+        <ChevronRight size={18} />
       </button>
     </div>
   );
