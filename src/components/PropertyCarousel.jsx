@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import { Bed, Bath, Ruler } from "lucide-react";
+import { Bed, Bath, Ruler ,ChevronLeft, ChevronRight} from "lucide-react";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -61,14 +62,17 @@ export default function PropertyCarousel() {
 
   return (
     <div className="relative overflow-hidden px-4 pb-4 mx-auto max-w-7xl">
-              <div className="py-6">
-          <h2 className="text-4xl font-extrabold text-left text-green-600 animate-fadeIn">
-            Featured Properties
-          </h2>
-        </div>
-      <div className="flex justify-between items-center mb-8">
+      {/* Title */}
+      <div className="py-6">
+        <h2 className="text-4xl font-extrabold text-left text-green-600 animate-fadeIn">
+          Featured Properties
+        </h2>
+      </div>
 
-        <div className="flex space-x-4">
+      {/* Dropdown for small devices and buttons for larger screens */}
+      <div className="flex justify-between items-center mb-8">
+        {/* Buttons for larger screens */}
+        <div className="hidden sm:flex space-x-4">
           <button className="bg-white text-black px-4 py-2 rounded border-2 hover:bg-green-600 hover:text-white transition-colors duration-300">
             Islamabad
           </button>
@@ -82,6 +86,18 @@ export default function PropertyCarousel() {
             Karachi
           </button>
         </div>
+
+        {/* Dropdown for small screens */}
+        <div className="sm:hidden">
+          <select className="block w-full text-black px-4 py-2 border-2 rounded bg-white hover:border-green-600 focus:ring focus:ring-green-300">
+            <option value="islamabad">Islamabad</option>
+            <option value="peshawar">Peshawar</option>
+            <option value="lahore">Lahore</option>
+            <option value="karachi">Karachi</option>
+          </select>
+        </div>
+
+        {/* View All Button */}
         <div>
           <button className="bg-white text-black px-4 py-2 border-2 rounded hover:bg-green-600 hover:text-white transition-colors duration-300">
             View All
@@ -89,7 +105,8 @@ export default function PropertyCarousel() {
         </div>
       </div>
 
-      <Slider ref={sliderRef} {...settings} className="">
+      {/* Carousel */}
+      <Slider ref={sliderRef} {...settings}>
         {properties.map((property) => (
           <div key={property.id} className="px-2 py-4">
             <div className="bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative">
@@ -125,23 +142,23 @@ export default function PropertyCarousel() {
         ))}
       </Slider>
 
+      
+      {/* Previous Button */}
       <button
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-transform hover:scale-110 z-10"
+        className="absolute left-6 top-1/2 transform bg-white/70 rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all hover:bg-white  z-10"
         onClick={goToPrev}
-        aria-label="Previous property"
+        aria-label="Previous investment"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
+        <ChevronLeft size={12} />
       </button>
+
+      {/* Next Button */}
       <button
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-transform hover:scale-110 z-10"
+        className="absolute right-6 top-1/2 transform bg-white/70 rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all hover:bg-white z-10"
         onClick={goToNext}
-        aria-label="Next property"
+        aria-label="Next investment"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
+        <ChevronRight size={12} />
       </button>
     </div>
   );

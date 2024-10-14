@@ -76,23 +76,23 @@ export default function CircularInvestmentCarousel() {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
-        }
+        },
       },
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-        }
+        },
       },
       {
         breakpoint: 640,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   const goToPrev = () => {
@@ -113,15 +113,30 @@ export default function CircularInvestmentCarousel() {
         Investments
       </h2>
 
+
+      {/* Dropdown for small devices and buttons for larger screens */}
       <div className="flex justify-between items-center mb-8">
-        <div className="flex space-x-4">
+        {/* Buttons for larger screens */}
+        <div className="hidden sm:flex space-x-4">
           <button className="bg-white text-black px-4 py-2 rounded border-2 hover:bg-green-600 hover:text-white transition-colors duration-300">
-            Residential
+          Residential
           </button>
           <button className="bg-white text-black px-4 py-2 rounded border-2 hover:bg-green-600 hover:text-white transition-colors duration-300">
-            Commercial
+          Commercial
           </button>
+
         </div>
+
+        {/* Dropdown for small screens */}
+        <div className="sm:hidden">
+          <select className="block w-full text-black px-4 py-2 border-2 rounded bg-white hover:border-green-600 focus:ring focus:ring-green-300">
+            <option value="esidential">Residential</option>
+            <option value="commercial">Commercial</option>
+
+          </select>
+        </div>
+
+        {/* View All Button */}
         <div>
           <button className="bg-white text-black px-4 py-2 border-2 rounded hover:bg-green-600 hover:text-white transition-colors duration-300">
             View All
@@ -129,6 +144,8 @@ export default function CircularInvestmentCarousel() {
         </div>
       </div>
 
+
+      {/* Slider Section */}
       <Slider ref={sliderRef} {...settings}>
         {investments.map((investment) => (
           <div key={investment.id} className="px-2 py-4">
@@ -142,9 +159,6 @@ export default function CircularInvestmentCarousel() {
                 <span className="absolute top-2 left-2 bg-gray-900 text-white px-2 py-1 text-xs rounded">
                   {investment.type}
                 </span>
-                <div className="absolute inset-0 hover:bg-black/30 flex items-center justify-center">
-
-                </div>
               </div>
               <div className="p-4">
                 <div className="text-xl font-bold text-green-600 mb-2 transition-transform group-hover:translate-x-1">
@@ -175,19 +189,22 @@ export default function CircularInvestmentCarousel() {
         ))}
       </Slider>
 
+      {/* Previous Button */}
       <button
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 active:scale-95 z-10"
+        className="absolute left-6 top-1/2 transform bg-white/70 rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all hover:bg-white  z-10"
         onClick={goToPrev}
         aria-label="Previous investment"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft size={12} />
       </button>
+
+      {/* Next Button */}
       <button
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 active:scale-95 z-10"
+        className="absolute right-6 top-1/2 transform bg-white/70 rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all hover:bg-white z-10"
         onClick={goToNext}
         aria-label="Next investment"
       >
-        <ChevronRight size={24} />
+        <ChevronRight size={12} />
       </button>
     </div>
   );
