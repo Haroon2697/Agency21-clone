@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import { Bed, Bath, Maximize } from "lucide-react";
+import { Bed, Bath, Ruler ,ChevronLeft, ChevronRight} from "lucide-react";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -60,32 +61,67 @@ export default function PropertyCarousel() {
   };
 
   return (
-    <div className="relative overflow-hidden px-4 py-14">
-      <h2 className="text-4xl font-extrabold mb-12 text-center text-green-600 animate-fadeIn">
-        Featured Properties
-      </h2>
+    <div className="relative overflow-hidden px-4 pb-4 mx-auto max-w-7xl">
+      {/* Title */}
+      <div className="py-6">
+        <h2 className="text-4xl font-extrabold text-left text-green-600 animate-fadeIn">
+          Featured Properties
+        </h2>
+      </div>
 
-      <Slider ref={sliderRef} {...settings} className="mx-auto max-w-7xl">
+      {/* Dropdown for small devices and buttons for larger screens */}
+      <div className="flex justify-between items-center mb-8">
+        {/* Buttons for larger screens */}
+        <div className="hidden sm:flex space-x-4">
+          <button className="bg-white text-black px-4 py-2 rounded border-2 hover:bg-green-600 hover:text-white transition-colors duration-300">
+            Islamabad
+          </button>
+          <button className="bg-white text-black px-4 py-2 rounded border-2 hover:bg-green-600 hover:text-white transition-colors duration-300">
+            Peshawar
+          </button>
+          <button className="bg-white text-black px-4 py-2 rounded border-2 hover:bg-green-600 hover:text-white transition-colors duration-300">
+            Lahore
+          </button>
+          <button className="bg-white text-black px-4 py-2 rounded border-2 hover:bg-green-600 hover:text-white transition-colors duration-300">
+            Karachi
+          </button>
+        </div>
+
+        {/* Dropdown for small screens */}
+        <div className="sm:hidden">
+          <select className="block w-full text-black px-4 py-2 border-2 rounded bg-white hover:border-green-600 focus:ring focus:ring-green-300">
+            <option value="islamabad">Islamabad</option>
+            <option value="peshawar">Peshawar</option>
+            <option value="lahore">Lahore</option>
+            <option value="karachi">Karachi</option>
+          </select>
+        </div>
+
+        {/* View All Button */}
+        <div>
+          <button className="bg-white text-black px-4 py-2 border-2 rounded hover:bg-green-600 hover:text-white transition-colors duration-300">
+            View All
+          </button>
+        </div>
+      </div>
+
+      {/* Carousel */}
+      <Slider ref={sliderRef} {...settings}>
         {properties.map((property) => (
           <div key={property.id} className="px-2 py-4">
-            <div className="bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative">
-              <div className="relative group">
+            <div className="bg-white rounded-lg border-2 shadow-md transform hover:scale-[1.03] transition-all duration-300 relative">
+              <div className="relative">
                 <img
                   src={property.image}
                   alt={`Property ${property.id}`}
-                  className="w-full h-48 object-cover rounded-t-lg group-hover:brightness-75 transition-all duration-300"
+                  className="w-full h-48 object-cover rounded-t-lg"
                 />
                 <span className="absolute top-2 left-2 bg-gray-900 text-white px-2 py-1 text-xs rounded">
                   {property.type}
                 </span>
-                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <button className="bg-white text-black px-4 py-2 rounded hover:bg-green-600 hover:text-white transition-colors duration-300">
-                    View Details
-                  </button>
-                </div>
               </div>
               <div className="p-4">
-                <div className="text-xl font-bold text-green-600 mb-2 transition-transform group-hover:translate-x-1">
+                <div className="text-xl font-bold text-green-600 mb-2">
                   PKR {property.price}
                 </div>
                 <div className="flex justify-between text-sm text-gray-600 mb-2">
@@ -96,7 +132,7 @@ export default function PropertyCarousel() {
                     <Bath size={16} className="mr-1" /> {property.baths} Bath
                   </span>
                   <span className="flex items-center">
-                    <Maximize size={16} className="mr-1" /> {property.area}
+                    <Ruler size={16} className="mr-1" /> {property.area}
                   </span>
                 </div>
                 <div className="text-xs text-gray-500">Posted On: {property.date}</div>
@@ -106,30 +142,24 @@ export default function PropertyCarousel() {
         ))}
       </Slider>
 
+      
+      {/* Previous Button */}
       <button
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-transform hover:scale-110 z-10"
+        className="absolute left-6 top-1/2 transform bg-white/70 rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all hover:bg-white  z-10"
         onClick={goToPrev}
-        aria-label="Previous property"
+        aria-label="Previous investment"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-transform hover:scale-110 z-10"
-        onClick={goToNext}
-        aria-label="Next property"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
+        <ChevronLeft size={12} />
       </button>
 
-      <div className="mt-8 text-center">
-        <button className="px-6 py-2 border border-green-600 text-green-600 rounded hover:bg-green-600 hover:text-white transition-colors duration-300">
-          View All Properties
-        </button>
-      </div>
+      {/* Next Button */}
+      <button
+        className="absolute right-6 top-1/2 transform bg-white/70 rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all hover:bg-white z-10"
+        onClick={goToNext}
+        aria-label="Next investment"
+      >
+        <ChevronRight size={12} />
+      </button>
     </div>
   );
 }
