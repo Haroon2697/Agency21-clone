@@ -109,7 +109,7 @@ export default function PropertyCarousel() {
       <Slider ref={sliderRef} {...settings}>
         {properties.map((property) => (
           <div key={property.id} className="px-2 py-4">
-            <div className="bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative">
+            <div className="bg-white rounded-lg border-2 shadow-md transform hover:scale-[1.03] transition-all duration-300 relative">
               <div className="relative">
                 <img
                   src={property.image}

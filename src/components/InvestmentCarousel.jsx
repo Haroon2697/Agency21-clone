@@ -108,7 +108,7 @@ export default function CircularInvestmentCarousel() {
   };
 
   return (
-    <div className="relative overflow-hidden px-4 py-8 bg-white mx-auto max-w-7xl">
+    <div className="relative overflow-hidden px-4 py-8 mx-auto max-w-7xl">
       <h2 className="text-4xl font-extrabold mb-12 text-start text-green-600 animate-fadeIn">
         Investments
       </h2>
@@ -149,7 +149,7 @@ export default function CircularInvestmentCarousel() {
       <Slider ref={sliderRef} {...settings}>
         {investments.map((investment) => (
           <div key={investment.id} className="px-2 py-4">
-            <div className="bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative">
+            <div className="bg-white rounded-lg border-2 transform shadow-md hover:scale-[1.03] transition-all duration-300 relative">
               <div className="relative group">
                 <img
                   src={investment.image}
