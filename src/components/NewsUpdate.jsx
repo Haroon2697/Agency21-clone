@@ -47,7 +47,7 @@ export default function BlogCarousel() {
           <div
             key={blog.id}
             className={`flex-none w-80 bg-white rounded-lg shadow-lg hover:shadow-2xl transform transition-transform duration-300 relative ${
-              index === activeIndex ? "scale-105" : "opacity-80"
+              index === activeIndex ? "scale-[1.05]" : "opacity-80"
             }`}
           >
             <div className="relative group">
