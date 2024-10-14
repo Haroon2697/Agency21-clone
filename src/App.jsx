@@ -6,6 +6,7 @@ import ClientsTestimonials from './components/ClientsTestimonials'
 import NewsUpdate from './components/NewsUpdate'
 import Header from './components/Header'
 import HeroSection from './components/HeroSection'
+import Footer from './components/Footer'
 function App() {
   return (
     <div>
@@ -24,6 +25,7 @@ function App() {
 {/* Javeria's Part */}
       <ClientsTestimonials />
       <NewsUpdate />
+      <Footer />
 
     </div>
   )
